@@ -2,11 +2,12 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:siuntu_web_app/utils/consts.dart' as consts;
 
 Future<bool> login(String email, String password) async {
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   final response = await http.post(
-    Uri.parse('http://localhost:8080/auth/login'),
+    Uri.parse('http://' + consts.ip + ':8080/auth/login'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
@@ -23,7 +24,8 @@ Future<bool> login(String email, String password) async {
     print(decodedToken);
     // Save token to shared preferences
     final SharedPreferences prefs = await _prefs;
-    prefs.setString('token', token);
+    prefs.setString('token', data['token']);
+    prefs.setInt('userId', data['userId']);
     return true;
   } else {
     return false;

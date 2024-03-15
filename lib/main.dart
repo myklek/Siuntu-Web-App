@@ -10,6 +10,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   var token = prefs.getString('token');
+  print('Token: $token');
   runApp(MyApp(
     initialRoute: token != null ? '/main' : '/login',
   ));
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: initialRoute,
       routes: {
-        '/login': (context) => LoginPage(),
+        '/login': (context) => LoginPage(), // Add LoginPage to routes
         '/main': (context) => MainPage(), // Add MainPage to routes
       },
     );

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:siuntu_web_app/pages/LandingPage.dart';
+import 'package:siuntu_web_app/pages/MainPage.dart';
 import 'package:siuntu_web_app/services/auth.dart' as auth;
 
 // Create login page with email and password fields and login button
@@ -10,16 +10,16 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   //get text from email and password fields
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController(text: 'test@email.com');
+  final TextEditingController _passwordController = TextEditingController(text: 'password');
 
   //create login function on login press
   Future<void> login() async {
     if (await auth.login(
         _emailController.text.trim(), _passwordController.text.trim())) {
-      Navigator.push(
+      Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => LandingPage()),
+        MaterialPageRoute(builder: (context) => MainPage()),
       );
     } else {
       showDialog(
