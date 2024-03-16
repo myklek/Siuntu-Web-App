@@ -11,14 +11,12 @@ class PackageListViewItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Hero(
-      tag: 'ListTile-Hero',
+      tag: 'ListTile-Hero ${shipments['id']}',
       child: Material(
         child: ListTile(
           title: new Text('Siuntos Nr. ${shipments['id']}'),
           subtitle: new Text('Gavėjas: ${shipments['recieverName']} | ${shipments['recieverCity']}'),
-          trailing: new Icon(Icons.qr_code_rounded),
-          tileColor: Colors.grey[200],
-          onTap: () {
+          trailing: Row(mainAxisSize: MainAxisSize.min,children: [new IconButton(onPressed: () {
             Navigator.push(
               context,
               MaterialPageRoute<Widget>(builder: (BuildContext context) {
@@ -26,12 +24,12 @@ class PackageListViewItem extends StatelessWidget {
                   appBar: AppBar(title: const Text('Siuntos QR Kodas')),
                   body: Center(
                     child: Hero(
-                      tag: 'ListTile-Hero',
+                      tag: 'ListTile-Hero ${shipments['id']}',
                       child: Material(
                         child: QrImageView(
                           data: shipments['id'].toString(),
                           version: QrVersions.auto,
-                          size: 200.0,
+                          size: 300.0,
                         ),
                       ),
                     ),
@@ -39,7 +37,9 @@ class PackageListViewItem extends StatelessWidget {
                 );
               }),
             );
-          },
+          }, icon: new Icon(Icons.qr_code_outlined))
+          ,IconButton(onPressed: (){}, icon: new Icon(Icons.file_copy_outlined))],),
+          tileColor: Colors.grey[200],
         ),
       ),
     );
