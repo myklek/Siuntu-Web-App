@@ -11,8 +11,9 @@ void main() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   var token = prefs.getString('token');
   print('Token: $token');
+  print(token != null ? '/main' : '/land');
   runApp(MyApp(
-    initialRoute: token != null ? '/main' : '/login',
+    initialRoute: token != null ? '/main' : '/land',
   ));
 }
 
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: initialRoute,
       routes: {
-        '/login': (context) => LoginPage(), // Add LoginPage to routes
+        '/land': (context) => LandingPage(), // Add LoginPage to routes
         '/main': (context) => MainPage(), // Add MainPage to routes
       },
     );

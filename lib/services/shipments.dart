@@ -7,22 +7,39 @@ Future<List<dynamic>> getShipments() async {
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   final SharedPreferences prefs = await _prefs;
   final String? token = prefs.getString('token');
-  final int? userId = prefs.getInt('userId');
   final response = await http.get(
-    Uri.parse('http://' + consts.ip +':8080/api/shipments'),
+    Uri.parse('http://' + consts.ip + ':8080/api/shipments'),
     headers: <String, String>{
-      'Content-Type': 'application/json charset=UTF-8',
-      'Authorization': 'Bearer $token',
-      'UserId': userId.toString()
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token'
     },
   );
   if (response.statusCode == 200) {
-
     final String decodedBody = utf8.decode(response.bodyBytes);
     final List<dynamic> data = jsonDecode(decodedBody);
 
     return data;
   } else {
     return [];
+  }
+}
+
+Future<bool> registerShipment(
+   dynamic shipment) async {
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  final SharedPreferences prefs = await _prefs;
+  final String? token = prefs.getString('token');
+  final int? userId = prefs.getInt('userId');
+  final response = await http.post(
+    Uri.parse('http://' + consts.ip + ':8080/api/shipments/new'),
+    headers: <String, String>{
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token',
+    },
+    body: shipment);
+  if (response.statusCode == 200) {
+    return true;
+  } else {
+    return false;
   }
 }

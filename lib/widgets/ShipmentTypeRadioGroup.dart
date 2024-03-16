@@ -17,16 +17,16 @@ class ShipmentTypeRadioGroup extends StatelessWidget {
         ),
         options: [
           FormBuilderFieldOption(
-              value: 'self-pack', child: const Text('Supakuosiu pats')),
+              value: 'SELF_PACK', child: const Text('Supakuosiu pats')),
           FormBuilderFieldOption(
-              value: 'self-service',
+              value: 'SELF_SERVICE',
               child: const Text('Supakuosiu savitarnoje')),
         ],
         validator: FormBuilderValidators.compose([
           FormBuilderValidators.required(),
         ]),
         onChanged: (value) {
-          if (value == 'self-pack')
+          if (value == 'SELF_PACK')
             callback(true);
           else
             callback(false);
