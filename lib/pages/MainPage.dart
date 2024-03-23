@@ -23,6 +23,7 @@ class _MainPageState extends State<MainPage> {
   void fetchShipments() async {
     List<dynamic> data = await getShipments(); // Call getShipments function
     setState(() {
+      print(data);
       shipments = data; // Fill list with records
     });
   }
