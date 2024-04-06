@@ -1,10 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:siuntu_web_app/pages/LandingPage.dart';
 import 'package:siuntu_web_app/pages/LoginPage.dart';
 import 'package:siuntu_web_app/pages/MainPage.dart'; // Import MainPage
 import 'package:shared_preferences/shared_preferences.dart';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

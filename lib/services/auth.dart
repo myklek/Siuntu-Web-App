@@ -31,3 +31,22 @@ Future<bool> login(String email, String password) async {
     return false;
   }
 }
+
+Future<bool> register(String email, String password) async {
+  final response = await http.post(
+    Uri.parse('http://' + consts.ip + ':8080/auth/signup'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(<String, String>{
+      'email': email,
+      'password': password,
+    }),
+  );
+  print(response);
+  if (response.statusCode == 200) {
+    return true;
+  } else {
+    return false;
+  }
+}

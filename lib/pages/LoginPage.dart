@@ -25,12 +25,12 @@ class _LoginPageState extends State<LoginPage> {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text('Error'),
-          content: Text('Invalid email or password'),
+          title: Text('Klaida'),
+          content: Text('Nepavyko prisijungti'),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text('OK'),
+              child: Text('Gerai'),
             ),
           ],
         ),

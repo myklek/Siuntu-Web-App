@@ -144,7 +144,8 @@ class PackageListViewItem extends StatelessWidget {
                                   children: <Widget>[
                                     ListTile(
                                       title: Text('Siuntos Nr.'),
-                                      subtitle: Text(shipments['id'].toString()),
+                                      subtitle:
+                                          Text(shipments['id'].toString()),
                                     ),
                                     //combine sender fields into one
                                     ListTile(
@@ -160,15 +161,16 @@ class PackageListViewItem extends StatelessWidget {
                                     ),
                                   ],
                                 ),
-
                                 Divider(),
                                 Expanded(
                                   child: ListView.builder(
-                                    itemCount: shipments['shipmentStatuses'].length,
+                                    itemCount:
+                                        shipments['shipmentStatuses'].length,
                                     itemBuilder: (context, index) {
                                       return ListTile(
-                                        title: Text(shipments['shipmentStatuses']
-                                            [index]['name']),
+                                        title: Text(
+                                            shipments['shipmentStatuses'][index]
+                                                ['name']),
                                         subtitle: Text(formatTime(
                                             shipments['shipmentStatuses'][index]
                                                     ['createdAt']
@@ -183,32 +185,35 @@ class PackageListViewItem extends StatelessWidget {
                     );
                   },
                   icon: new Icon(Icons.zoom_in)),
-              new IconButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute<Widget>(
-                          builder: (BuildContext context) {
-                        return Scaffold(
-                          appBar: AppBar(title: const Text('Siuntos QR Kodas')),
-                          body: Center(
-                            child: Hero(
-                              tag: 'ListTile-Hero ${shipments['id']}',
-                              child: Material(
-                                child: QrImageView(
-                                  data: shipments['id'].toString(),
-                                  version: QrVersions.auto,
-                                  size: 300.0,
+              if (shipments['shipmentType'] == 'SELF_PACK' && shipments['collected'] == false)
+                new IconButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute<Widget>(
+                            builder: (BuildContext context) {
+                          return Scaffold(
+                            appBar:
+                                AppBar(title: const Text('Siuntos QR Kodas')),
+                            body: Center(
+                              child: Hero(
+                                tag: 'ListTile-Hero ${shipments['id']}',
+                                child: Material(
+                                  child: QrImageView(
+                                    data: shipments['id'].toString(),
+                                    version: QrVersions.auto,
+                                    size: 300.0,
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        );
-                      }),
-                    );
-                  },
-                  icon: new Icon(Icons.qr_code_outlined)),
-              new IconButton(
+                          );
+                        }),
+                      );
+                    },
+                    icon: new Icon(Icons.qr_code_outlined)),
+              if (shipments['shipmentType'] == 'SELF_SERVICE')
+                new IconButton(
                   onPressed: () {
                     createPdf(shipments);
                   },
