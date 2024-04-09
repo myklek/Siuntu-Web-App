@@ -42,7 +42,12 @@ class PackageListViewItem extends StatelessWidget {
         build: (pw.Context context) => pw.Center(
           child: pw.Container(
             child: pw.Row(children: [
-              qrImage,
+              pw.BarcodeWidget(
+                barcode: pw.Barcode.qrCode(),
+                data: shipment['id'].toString(),
+                width: 80,
+                height: 100,
+              ),
               pw.VerticalDivider(),
               pw.Column(children: [
                 pw.Container(
