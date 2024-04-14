@@ -19,6 +19,7 @@ class PackageListViewItem extends StatelessWidget {
     return DateFormat('yyyy-MM-dd  kk:mm').format(parsedTime);
   }
 
+  //todo move to utils
   Future<Uint8List> createQrImage(String data) async {
     final qrCode = QrPainter(
       data: data,
@@ -29,6 +30,7 @@ class PackageListViewItem extends StatelessWidget {
     return byteData!.buffer.asUint8List();
   }
 
+  //Todo move to utils
   Future<void> createPdf(dynamic shipment) async {
     final font = await PdfGoogleFonts.nunitoExtraLight();
     final pdf = pw.Document();
@@ -197,6 +199,7 @@ class PackageListViewItem extends StatelessWidget {
                         context,
                         MaterialPageRoute<Widget>(
                             builder: (BuildContext context) {
+                              //todo move to separate widget
                           return Scaffold(
                             appBar:
                                 AppBar(title: const Text('Siuntos QR Kodas')),
