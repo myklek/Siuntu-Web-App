@@ -20,6 +20,7 @@ Future<List<dynamic>> getShipments() async {
 
     return data;
   } else {
+    print(response.body);
     return [];
   }
 }

@@ -28,6 +28,7 @@ Future<bool> login(String email, String password) async {
     prefs.setInt('userId', data['userId']);
     return true;
   } else {
+    print(response.body);
     return false;
   }
 }
@@ -47,6 +48,8 @@ Future<bool> register(String email, String password) async {
   if (response.statusCode == 200) {
     return true;
   } else {
+    print(response);
+    print(response.body);
     return false;
   }
 }
