@@ -16,18 +16,22 @@ class ShipmentSizeDropdown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FormBuilderDropdown<String>(
-      name: 'packageSize',
-      decoration: InputDecoration(
-        labelText: 'Siuntos Dydis',
-        hintText: 'Pasirinkite siuntos dydį',
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: FormBuilderDropdown<String>(
+        name: 'packageSize',
+        decoration: InputDecoration(
+          labelText: 'Siuntos Dydis',
+          hintText: 'Pasirinkite siuntos dydį',
+          border: OutlineInputBorder(),
+        ),
+        items: packageOptions
+            .map((size) => DropdownMenuItem(
+                  value: size[0],
+                  child: Text(size),
+                ))
+            .toList(),
       ),
-      items: packageOptions
-          .map((size) => DropdownMenuItem(
-        value: size[0],
-        child: Text(size),
-      ))
-          .toList(),
     );
   }
 }

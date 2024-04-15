@@ -1,73 +1,82 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:siuntu_web_app/pages/MainPage.dart';
-import 'package:siuntu_web_app/services/auth.dart' as auth;
+import 'package:siuntu_web_app/controllers/AuthController.dart';
+import 'package:siuntu_web_app/models/User.dart';
 
-// Create login page with email and password fields and login button
-class LoginPage extends StatefulWidget {
-  @override
-  _LoginPageState createState() => _LoginPageState();
-}
+final _formKey = GlobalKey<FormBuilderState>();
 
-class _LoginPageState extends State<LoginPage> {
-  //get text from email and password fields
-  final TextEditingController _emailController = TextEditingController(text: 'test@email.com');
-  final TextEditingController _passwordController = TextEditingController(text: 'password');
+class LoginPage extends StatelessWidget {
+  final AuthController _authController = AuthController();
 
-  //create login function on login press
-  Future<void> login() async {
-    if (await auth.login(
-        _emailController.text.trim(), _passwordController.text.trim())) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => MainPage()),
+  Future<void> _login(BuildContext context) async {
+    if (_formKey.currentState!.saveAndValidate()) {
+      User user = User(
+        email: _formKey.currentState!.fields['email']!.value.trim(),
+        password: _formKey.currentState!.fields['password']!.value.trim(),
       );
-    } else {
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: Text('Klaida'),
-          content: Text('Nepavyko prisijungti'),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: Text('Gerai'),
-            ),
-          ],
-        ),
-      );
+      if (await _authController.login(user)) {
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MainPage()));
+      } else {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('Klaida'),
+            content: Text('Nepavyko prisijungti'),
+            actions: [TextButton(onPressed: () => Navigator.pop(context), child: Text('Gerai'))],
+          ),
+        );
+      }
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Prisijungimas'),
-      ),
+      appBar: AppBar(title: const Text('Prisijungimas')),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            TextField(
-              controller: _emailController,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'El. paštas',
-              ),
+        child: Container(
+          constraints: BoxConstraints(maxWidth: 800),
+          child: FormBuilder(
+            key: _formKey,
+            child: Column(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: FormBuilderTextField(
+                    name: 'email',
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'El. paštas',
+                    ),
+                    validator: FormBuilderValidators.compose([
+                      FormBuilderValidators.required(errorText: 'Laukas privalomas'),
+                      FormBuilderValidators.email(errorText: 'Neteisingas el. pašto formatas'),
+                    ]),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: FormBuilderTextField(
+                    name: 'password',
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Slaptažodis',
+                    ),
+                    validator: FormBuilderValidators.compose([
+                      FormBuilderValidators.required(errorText: 'Laukas privalomas'),
+                      FormBuilderValidators.minLength(8, errorText: 'Slaptažodis turi būti bent 8 simbolių'),
+                    ]),
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () => _login(context),
+                  child: const Text('Prisijungti'),
+                ),
+              ],
             ),
-            TextField(
-              controller: _passwordController,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Slaptažodis',
-              ),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                login();
-              },
-              child: const Text('Prisijungti'),
-            ),
-          ],
+          ),
         ),
       ),
     );

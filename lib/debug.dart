@@ -1,8 +1,11 @@
-import 'package:siuntu_web_app/services/auth.dart' as auth;
-import 'package:siuntu_web_app/services/shipments.dart' as shipmentAPI;
+import 'package:siuntu_web_app/models/Shipment.dart';
+import 'dart:convert';
 
 void main() {
-  auth.login('test@email.com', 'password');
-  shipmentAPI.getShipments();
+  Shipment shipment = Shipment(
+    id: 1,
+  );
+
+  print(jsonEncode(shipment));
 
 }

@@ -24,8 +24,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Savitarnos Puslapis',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+      // theme: ThemeData(
+      //   useMaterial3: true,
+      //
+      // ),
+      darkTheme: ThemeData(
+        useMaterial3: true,
+        colorSchemeSeed: Color(Colors.teal.value),
+
       ),
       initialRoute: initialRoute,
       routes: {

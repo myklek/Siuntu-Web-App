@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:siuntu_web_app/pages/LoginPage.dart';
-import 'package:siuntu_web_app/pages/RegisterPage.dart';
+import 'package:siuntu_web_app/controllers/LandingController.dart';
 class LandingPage extends StatelessWidget {
+  final LandingController _landingController = LandingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -12,23 +13,23 @@ class LandingPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => LoginPage()),
-                );
-              },
-              child: const Text('Prisijungti'),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  _landingController.navigateToLogin(context);
+                },
+                child: const Text('Prisijungti'),
+              ),
             ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => RegisterPage()),
-                );
-              },
-              child: const Text('Registruotis'),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  _landingController.navigateToRegister(context);
+                },
+                child: const Text('Registruotis'),
+              ),
             ),
           ],
         ),
