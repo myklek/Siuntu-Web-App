@@ -1,3 +1,5 @@
+import 'package:siuntu_web_app/models/Package.dart';
+
 class Shipment {
   List<ShipmentStatuses>? shipmentStatuses;
   String? senderName;
@@ -7,7 +9,7 @@ class Shipment {
   String? createdAt;
   String? updatedAt;
   String? shipmentType;
-  String? packageSize;
+  Package? package;
   int? id;
 
   Shipment(
@@ -19,7 +21,7 @@ class Shipment {
       this.createdAt,
       this.updatedAt,
       this.shipmentType,
-      this.packageSize,
+      this.package,
       this.id});
 
   Shipment.fromJson(Map<String, dynamic> json) {
@@ -36,7 +38,7 @@ class Shipment {
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     shipmentType = json['shipmentType'];
-    packageSize = json['packageSize'];
+    package = json['package'] != null ? new Package.fromJson(json['package']) : null;
     id = json['id'];
   }
 
@@ -53,7 +55,7 @@ class Shipment {
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;
     data['shipmentType'] = this.shipmentType;
-    data['packageSize'] = this.packageSize;
+    data['package'] = this.package;
     data['id'] = this.id;
     return data;
   }

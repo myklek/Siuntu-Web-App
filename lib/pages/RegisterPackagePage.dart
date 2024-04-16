@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:siuntu_web_app/models/Package.dart';
 
 import 'package:siuntu_web_app/widgets/ShipmentSizeDropdown.dart';
 import 'package:siuntu_web_app/widgets/ShipmentTypeRadioGroup.dart';
@@ -12,15 +13,7 @@ import 'package:siuntu_web_app/controllers/ShipmentController.dart';
 import 'package:siuntu_web_app/models/Shipment.dart';
 
 
-import 'MainPage.dart';
-
-
 final _formKey = GlobalKey<FormBuilderState>();
-List<String> packageOptions = [
-  'S - iki 0.5kg 10/10/10 cm',
-  'M - iki 2kg 20/20/20 cm',
-  'L - iki 5kg 30/30/30 cm'
-];
 
 
 class RegisterPackagePage extends StatefulWidget {
@@ -31,6 +24,18 @@ class RegisterPackagePage extends StatefulWidget {
 class _RegisterPackagePageState extends State<RegisterPackagePage> {
   bool isSelfPack = false;
   final ShipmentController _shipmentController = ShipmentController();
+  List<Package> packages = [];
+
+  @override
+  void initState() {
+    super.initState();
+    fetchPackages();
+  }
+
+  Future<void> fetchPackages() async {
+    print('call fetch');
+    packages = await _shipmentController.fetchPackages();
+  }
 
   List<Widget> forms = [
     Padding(
@@ -92,7 +97,7 @@ class _RegisterPackagePageState extends State<RegisterPackagePage> {
                 ...forms,
                 ShipmentTypeRadioGroup(
                     callback: (value) => setState(() => isSelfPack = value)),
-                if (isSelfPack) ShipmentSizeDropdown(),
+                if (isSelfPack) ShipmentSizeDropdown(packageOptions: packages),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ElevatedButton(
@@ -106,7 +111,7 @@ class _RegisterPackagePageState extends State<RegisterPackagePage> {
                             recieverName: _formKey.currentState?.fields['recieverName']?.value,
                             recieverCity: _formKey.currentState?.fields['recieverCity']?.value,
                             shipmentType: _formKey.currentState?.fields['shipmentType']?.value,
-                            packageSize: _formKey.currentState?.fields['packageSize']?.value,
+                            package: _formKey.currentState?.fields['package']?.value,
                             // Add other fields as necessary
                           );
                           if (await _shipmentController.registerShipment(shipment)) {
