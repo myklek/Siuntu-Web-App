@@ -1,4 +1,4 @@
-import 'package:siuntu_web_app/services/shipments.dart';
+import 'package:siuntu_web_app/services/shipment.dart';
 import 'package:siuntu_web_app/models/Shipment.dart';
 import 'package:siuntu_web_app/models/Package.dart';
 import 'dart:convert';

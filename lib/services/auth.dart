@@ -23,8 +23,6 @@ Future<bool> login(String email, String password) async {
     final String token = data['token'];
     final Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
     debugPrint(response.body);
-    // debugPrint(decodedToken as String?);
-    // Save token to shared preferences
     final SharedPreferences prefs = await _prefs;
     prefs.setString('token', data['token']);
     prefs.setInt('userId', data['userId']);

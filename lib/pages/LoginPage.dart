@@ -1,35 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:siuntu_web_app/pages/MainPage.dart';
-import 'package:siuntu_web_app/controllers/AuthController.dart';
-import 'package:siuntu_web_app/models/User.dart';
+import 'package:siuntu_web_app/controllers/LoginController.dart';
 
 final _formKey = GlobalKey<FormBuilderState>();
 
 class LoginPage extends StatelessWidget {
-  final AuthController _authController = AuthController();
-
-  Future<void> _login(BuildContext context) async {
-    if (_formKey.currentState!.saveAndValidate()) {
-      User user = User(
-        email: _formKey.currentState!.fields['email']!.value.trim(),
-        password: _formKey.currentState!.fields['password']!.value.trim(),
-      );
-      if (await _authController.login(user)) {
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MainPage()));
-      } else {
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: Text('Klaida'),
-            content: Text('Nepavyko prisijungti'),
-            actions: [TextButton(onPressed: () => Navigator.pop(context), child: Text('Gerai'))],
-          ),
-        );
-      }
-    }
-  }
+  final LoginController _loginController = LoginController();
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +23,7 @@ class LoginPage extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: FormBuilderTextField(
                     name: 'email',
+                    initialValue: 'mykolas@email.com',
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'El. paštas',
@@ -60,6 +38,7 @@ class LoginPage extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: FormBuilderTextField(
                     name: 'password',
+                    initialValue: '12345678',
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Slaptažodis',
@@ -71,7 +50,7 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: () => _login(context),
+                  onPressed: () => _loginController.login(context, _formKey),
                   child: const Text('Prisijungti'),
                 ),
               ],

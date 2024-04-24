@@ -16,12 +16,12 @@ import 'package:siuntu_web_app/models/Shipment.dart';
 final _formKey = GlobalKey<FormBuilderState>();
 
 
-class RegisterPackagePage extends StatefulWidget {
+class CreateShipmentPage extends StatefulWidget {
   @override
-  State<RegisterPackagePage> createState() => _RegisterPackagePageState();
+  State<CreateShipmentPage> createState() => _CreateShipmentPageState();
 }
 
-class _RegisterPackagePageState extends State<RegisterPackagePage> {
+class _CreateShipmentPageState extends State<CreateShipmentPage> {
   bool isSelfPack = false;
   final ShipmentController _shipmentController = ShipmentController();
   List<Package> packages = [];

@@ -180,7 +180,7 @@ class PackageListViewItem extends StatelessWidget {
                     );
                   },
                   icon: new Icon(Icons.zoom_in)),
-              if (shipment.shipmentType == 'SELF_PACK')
+              // if (shipment.shipmentType == 'SELF_PACK')
                 new IconButton(
                     onPressed: () {
                       Navigator.push(
@@ -209,7 +209,7 @@ class PackageListViewItem extends StatelessWidget {
                       );
                     },
                     icon: new Icon(Icons.qr_code_outlined)),
-              if (shipment.shipmentType == 'SELF_SERVICE')
+              // if (shipment.shipmentType == 'SELF_SERVICE')
                 new IconButton(
                     onPressed: () {
                       createPdf(shipment);
