@@ -1,43 +1,53 @@
 import 'package:siuntu_web_app/models/Package.dart';
+import 'package:siuntu_web_app/models/Status.dart';
 
 class Shipment {
-  List<ShipmentStatuses>? shipmentStatuses;
+  List<Status>? shipmentStatuses;
   String? senderName;
-  String? senderCity;
+  String? senderAddress;
+  String? senderPhoneNumber;
   String? recieverName;
-  String? recieverCity;
+  String? recieverAddress;
+  String? recieverPhoneNumber;
   String? createdAt;
   String? updatedAt;
   String? shipmentType;
+  bool? collected;
   Package? package;
   int? id;
 
   Shipment(
       {this.shipmentStatuses,
       this.senderName,
-      this.senderCity,
+      this.senderAddress,
+      this.senderPhoneNumber,
       this.recieverName,
-      this.recieverCity,
+      this.recieverAddress,
+      this.recieverPhoneNumber,
       this.createdAt,
       this.updatedAt,
       this.shipmentType,
+      this.collected,
       this.package,
       this.id});
 
   Shipment.fromJson(Map<String, dynamic> json) {
     if (json['shipmentStatuses'] != null) {
-      shipmentStatuses = <ShipmentStatuses>[];
+      shipmentStatuses = <Status>[];
       json['shipmentStatuses'].forEach((v) {
-        shipmentStatuses!.add(new ShipmentStatuses.fromJson(v));
+        shipmentStatuses!.add(new Status.fromJson(v));
       });
     }
     senderName = json['senderName'];
-    senderCity = json['senderCity'];
+    senderAddress = json['senderAddress'];
+    senderPhoneNumber = json['senderPhoneNumber'];
     recieverName = json['recieverName'];
-    recieverCity = json['recieverCity'];
+    recieverAddress = json['recieverAddress'];
+    recieverPhoneNumber = json['recieverPhoneNumber'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     shipmentType = json['shipmentType'];
+    collected = json['collected'];
     package = json['package'] != null ? new Package.fromJson(json['package']) : null;
     id = json['id'];
   }
@@ -49,33 +59,17 @@ class Shipment {
           this.shipmentStatuses!.map((v) => v.toJson()).toList();
     }
     data['senderName'] = this.senderName;
-    data['senderCity'] = this.senderCity;
+    data['senderAddress'] = this.senderAddress;
+    data['senderPhoneNumber'] = this.senderPhoneNumber;
     data['recieverName'] = this.recieverName;
-    data['recieverCity'] = this.recieverCity;
+    data['recieverAddress'] = this.recieverAddress;
+    data['recieverPhoneNumber'] = this.recieverPhoneNumber;
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;
     data['shipmentType'] = this.shipmentType;
+    data['collected'] = this.collected;
     data['package'] = this.package;
     data['id'] = this.id;
-    return data;
-  }
-}
-
-class ShipmentStatuses {
-  String? createdAt;
-  String? name;
-
-  ShipmentStatuses({this.createdAt, this.name});
-
-  ShipmentStatuses.fromJson(Map<String, dynamic> json) {
-    createdAt = json['createdAt'];
-    name = json['name'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['createdAt'] = this.createdAt;
-    data['name'] = this.name;
     return data;
   }
 }

@@ -6,11 +6,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:siuntu_web_app/utils/consts.dart' as consts;
 
 Future<bool> login(String email, String password) async {
-  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   final response = await http.post(
     Uri.parse('http://' + consts.ip + ':8080/auth/login'),
     headers: <String, String>{
-      'Access-Control-Allow-Private-Network': 'true',
+      'Access-Control-Allow-Origin': '*',
+      // 'Access-Control-Allow-Private-Network': 'true',
       'Content-Type': 'application/json; charset=UTF-8',
     },
     body: jsonEncode(<String, String>{
@@ -20,17 +20,18 @@ Future<bool> login(String email, String password) async {
   );
   if (response.statusCode == 200) {
     final Map<String, dynamic> data = jsonDecode(response.body);
-    final String token = data['token'];
-    final Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
-    debugPrint(response.body);
-    final SharedPreferences prefs = await _prefs;
-    prefs.setString('token', data['token']);
-    prefs.setInt('userId', data['userId']);
+    await saveUserDataToLocalStorage(data);
     return true;
   } else {
-    debugPrint(response.body);
     return false;
   }
+}
+
+Future<void> saveUserDataToLocalStorage(Map<String, dynamic> data) async {
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  final SharedPreferences prefs = await _prefs;
+  prefs.setString('token', data['token']);
+  prefs.setInt('userId', data['userId']);
 }
 
 Future<bool> register(String email, String password) async {
@@ -44,12 +45,9 @@ Future<bool> register(String email, String password) async {
       'password': password,
     }),
   );
-  // debugPrint(response as String?);
   if (response.statusCode == 200) {
     return true;
   } else {
-    // debugPrint(response as String?);
-    debugPrint(response.body);
     return false;
   }
 }

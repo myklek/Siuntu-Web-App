@@ -1,19 +1,18 @@
-import 'package:siuntu_web_app/services/shipment.dart';
+import 'package:siuntu_web_app/services/ShipmentService.dart' as shipmentService;
 import 'package:siuntu_web_app/models/Shipment.dart';
 import 'package:siuntu_web_app/models/Package.dart';
 import 'dart:convert';
 
 class ShipmentController {
-  Future<List<Shipment>> fetchShipments() async {
-    return await getShipments();
-
+  Future<List<Shipment>> getShipments() async {
+    return await shipmentService.getShipments();
   }
 
   Future<bool> registerShipment(Shipment shipment) async {
-    return await createShipment(shipment);
+    return await shipmentService.createShipment(shipment);
   }
 
-  Future<List<Package>> fetchPackages() async {
-    return await getPackages();
+  Future<List<Package>> getPackages() async {
+    return await shipmentService.getPackages();
   }
 }

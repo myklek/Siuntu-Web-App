@@ -1,8 +1,8 @@
 class Package {
   int? id;
-  int? width;
-  int? height;
-  int? length;
+  double? width;
+  double? height;
+  double? length;
   String? name;
 
   Package({this.id, this.width, this.height, this.length, this.name});

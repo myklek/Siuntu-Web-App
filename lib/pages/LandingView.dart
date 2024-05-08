@@ -1,7 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:siuntu_web_app/controllers/LandingController.dart';
+import 'package:flutter/material.dart';
+import 'package:siuntu_web_app/pages/LoginView.dart';
+import 'package:siuntu_web_app/pages/RegisterView.dart';
+
 class LandingPage extends StatelessWidget {
-  final LandingController _landingController = LandingController();
+  void navigateToRegisterView(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => RegisterPage()),
+    );
+  }
+  void navigateToLoginView(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => LoginPage()),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,8 +30,10 @@ class LandingPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    fixedSize: Size(250, 50), elevation: 8),
                 onPressed: () {
-                  _landingController.navigateToLogin(context);
+                  navigateToLoginView(context);
                 },
                 child: const Text('Prisijungti'),
               ),
@@ -25,8 +41,10 @@ class LandingPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    fixedSize: Size(250, 50), elevation: 8),
                 onPressed: () {
-                  _landingController.navigateToRegister(context);
+                  navigateToRegisterView(context);
                 },
                 child: const Text('Registruotis'),
               ),

@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:siuntu_web_app/pages/RegisterPackagePage.dart';
+import 'package:siuntu_web_app/pages/CreateShipmentView.dart';
 import 'package:siuntu_web_app/controllers/ShipmentController.dart';
 import 'package:siuntu_web_app/models/Shipment.dart';
 import 'package:siuntu_web_app/widgets/PackageListViewItem.dart';
 import 'package:flutter/material.dart';
-import 'package:siuntu_web_app/controllers/MainPageController.dart';
+
 import 'package:siuntu_web_app/widgets/PackageListViewItem.dart';
+
 
 class MainPage extends StatefulWidget {
   @override
   _MainPageState createState() => _MainPageState();
 }
 
+
 class _MainPageState extends State<MainPage> {
   List<Shipment> shipments = [];
-  final MainPageController _mainPageController = MainPageController();
+  final ShipmentController _shipmentController = ShipmentController();
 
   @override
   void initState() {
@@ -23,7 +25,7 @@ class _MainPageState extends State<MainPage> {
   }
 
   void fetchShipments() async {
-    List<Shipment> data = await _mainPageController.fetchShipments();
+    List<Shipment> data = await _shipmentController.getShipments();
     setState(() {
       shipments = data;
     });
@@ -44,10 +46,14 @@ class _MainPageState extends State<MainPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          _mainPageController.navigateToShipmentCreation(context);
+          navigateToCreateShipmentView(context);
         },
         child: const Icon(Icons.add_to_photos_outlined),
       ),
     );
+  }
+
+  void navigateToCreateShipmentView(BuildContext context) {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => CreateShipmentView()));
   }
 }

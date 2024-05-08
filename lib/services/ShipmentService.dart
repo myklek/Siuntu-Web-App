@@ -5,7 +5,6 @@ import 'package:siuntu_web_app/models/Package.dart';
 import 'package:siuntu_web_app/models/Shipment.dart';
 import 'package:siuntu_web_app/utils/consts.dart' as consts;
 
-
 Future<List<Shipment>> getShipments() async {
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   final SharedPreferences prefs = await _prefs;
@@ -32,7 +31,6 @@ Future<bool> createShipment(Shipment shipment) async {
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   final SharedPreferences prefs = await _prefs;
   final String? token = prefs.getString('token');
-  final int? userId = prefs.getInt('userId');
   final response = await http.post(
       Uri.parse('http://' + consts.ip + ':8080/api/shipment/new'),
       headers: <String, String>{
@@ -45,8 +43,6 @@ Future<bool> createShipment(Shipment shipment) async {
   } else {
     return false;
   }
-
-
 }
 
 Future<List<Package>> getPackages() async {
