@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:siuntu_web_app/pages/LandingView.dart';
-import 'package:siuntu_web_app/pages/LoginView.dart';
-import 'package:siuntu_web_app/pages/MainView.dart'; // Import MainPage
+import 'package:siuntu_web_app/pages/MainView.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   var token = prefs.getString('token');
-  print('Token: $token');
-  print(token != null ? '/main' : '/land');
   runApp(MyApp(
     initialRoute: token != null ? '/main' : '/land',
   ));
 }
-
 class MyApp extends StatelessWidget {
   final String initialRoute;
 
@@ -24,22 +20,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Savitarnos Puslapis',
-      // theme: ThemeData(
-      //   useMaterial3: true,
-      //
-      // ),
+
       darkTheme: ThemeData(
         useMaterial3: true,
         colorSchemeSeed: Color(Colors.teal.value),
-
       ),
       initialRoute: initialRoute,
       routes: {
-        '/land': (context) => LandingPage(), // Add LoginPage to routes
-        '/main': (context) => MainPage(), // Add MainPage to routes
+        '/land': (context) => LandingPage(),
+        '/main': (context) => MainPage(),
       },
     );
   }
 }
-
-// Create landing page with login and register buttons with router to navigate to login and register pages

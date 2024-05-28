@@ -1,7 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:siuntu_web_app/pages/MainView.dart';
 import 'package:siuntu_web_app/services/AuthService.dart' as auth;
-import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 class AuthenticationController {
   Future<bool> login(String email, String password) async {

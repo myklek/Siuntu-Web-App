@@ -21,13 +21,11 @@ Future<List<Shipment>> getShipments() async {
     final List<dynamic> data = jsonDecode(decodedBody);
     return data.map((item) => Shipment.fromJson(item)).toList();
   } else {
-    print(response.body);
     return [];
   }
 }
 
 Future<bool> createShipment(Shipment shipment) async {
-  print(shipment.toJson());
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   final SharedPreferences prefs = await _prefs;
   final String? token = prefs.getString('token');
@@ -61,7 +59,6 @@ Future<List<Package>> getPackages() async {
     final List<dynamic> data = jsonDecode(decodedBody);
     return data.map((item) => Package.fromJson(item)).toList();
   } else {
-    print(response.body);
     return [];
   }
 }

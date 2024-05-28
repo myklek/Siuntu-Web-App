@@ -3,16 +3,11 @@ import 'package:siuntu_web_app/pages/CreateShipmentView.dart';
 import 'package:siuntu_web_app/controllers/ShipmentController.dart';
 import 'package:siuntu_web_app/models/Shipment.dart';
 import 'package:siuntu_web_app/widgets/PackageListViewItem.dart';
-import 'package:flutter/material.dart';
-
-import 'package:siuntu_web_app/widgets/PackageListViewItem.dart';
-
 
 class MainPage extends StatefulWidget {
   @override
   _MainPageState createState() => _MainPageState();
 }
-
 
 class _MainPageState extends State<MainPage> {
   List<Shipment> shipments = [];
@@ -38,12 +33,18 @@ class _MainPageState extends State<MainPage> {
         automaticallyImplyLeading: false,
         title: const Text('Siuntos'),
       ),
-      body: ListView.builder(
-        itemCount: shipments.length,
-        itemBuilder: (context, index) {
-          return PackageListViewItem(shipment: shipments[index]);
-        },
-      ),
+      body: shipments.length > 0
+          ? ListView.builder(
+              itemCount: shipments.length,
+              itemBuilder: (context, index) {
+                return PackageListViewItem(shipment: shipments[index]);
+              },
+            )
+          : Center(
+              child: Text(
+              "Siuntų sąrašas tuščias",
+              style: TextStyle(fontSize: 20),
+            )),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           navigateToCreateShipmentView(context);
@@ -54,6 +55,7 @@ class _MainPageState extends State<MainPage> {
   }
 
   void navigateToCreateShipmentView(BuildContext context) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => CreateShipmentView()));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => CreateShipmentView()));
   }
 }

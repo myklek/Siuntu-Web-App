@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
 import 'package:siuntu_web_app/pages/LoginView.dart';
 import 'package:siuntu_web_app/pages/RegisterView.dart';
 
