@@ -5,7 +5,7 @@ import 'package:siuntu_web_app/utils/consts.dart' as consts;
 
 Future<bool> login(String email, String password) async {
   final response = await http.post(
-    Uri.parse('http://' + consts.ip + ':8080/auth/login'),
+    Uri.parse('http://' + consts.ip + ':'+consts.port+'/auth/login'),
     headers: <String, String>{
       'Access-Control-Allow-Origin': '*',
       'Content-Type': 'application/json; charset=UTF-8',
@@ -33,7 +33,7 @@ Future<void> saveUserDataToLocalStorage(Map<String, dynamic> data) async {
 
 Future<bool> register(String email, String password) async {
   final response = await http.post(
-    Uri.parse('http://' + consts.ip + ':8080/auth/signup'),
+    Uri.parse('http://' + consts.ip + ':'+consts.port+'/auth/signup'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
