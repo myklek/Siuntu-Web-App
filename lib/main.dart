@@ -22,6 +22,8 @@ class MyApp extends StatelessWidget {
       title: 'Savitarnos Puslapis',
 
       darkTheme: ThemeData(
+        // fontFamily: 'Roboto',
+        fontFamilyFallback: ['Roboto'],
         useMaterial3: true,
         colorSchemeSeed: Color(Colors.teal.value),
       ),
