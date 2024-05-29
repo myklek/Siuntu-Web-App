@@ -20,7 +20,7 @@ WORKDIR /app/
 RUN flutter clean
 RUN flutter pub get
 ARG SERVER_IP
-RUN flutter build web --dart-define="SERVER_IP=$SERVER_IP" --offline
+RUN flutter build web --dart-define="SERVER_IP=$SERVER_IP" --no-web-resources-cdn
 #COPY build/web/index.html build/web/index.html
 # Stage 2 - Create the run-time image
 FROM nginx:1.21.1-alpine
