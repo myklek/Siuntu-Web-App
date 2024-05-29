@@ -10,7 +10,7 @@ Future<List<Shipment>> getShipments() async {
   final SharedPreferences prefs = await _prefs;
   final String? token = prefs.getString('token');
   final response = await http.get(
-    Uri.parse('http://' + consts.ip + ':'+consts.port+'/api/shipment/all'),
+    Uri.parse('http://' + consts.ip + ':8080/api/shipment/all'),
     headers: <String, String>{
       'Content-Type': 'application/json',
       'Authorization': 'Bearer $token'
@@ -30,7 +30,7 @@ Future<bool> createShipment(Shipment shipment) async {
   final SharedPreferences prefs = await _prefs;
   final String? token = prefs.getString('token');
   final response = await http.post(
-      Uri.parse('http://' + consts.ip + ':'+consts.port+'/api/shipment/new'),
+      Uri.parse('http://' + consts.ip + ':8080/api/shipment/new'),
       headers: <String, String>{
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
@@ -48,7 +48,7 @@ Future<List<Package>> getPackages() async {
   final SharedPreferences prefs = await _prefs;
   final String? token = prefs.getString('token');
   final response = await http.get(
-    Uri.parse('http://' + consts.ip + ':'+consts.port+'/api/shipment/packages'),
+    Uri.parse('http://' + consts.ip + ':8080/api/shipment/packages'),
     headers: <String, String>{
       'Content-Type': 'application/json',
       'Authorization': 'Bearer $token'
