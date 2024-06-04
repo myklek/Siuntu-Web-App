@@ -3,15 +3,17 @@ class Package {
   double? width;
   double? height;
   double? length;
+  double? weight;
   String? name;
 
-  Package({this.id, this.width, this.height, this.length, this.name});
+  Package({this.id, this.width, this.height, this.length,this.weight, this.name});
 
   Package.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     width = json['width'];
     height = json['height'];
     length = json['length'];
+    weight = json['weight'];
     name = json['name'];
   }
 
@@ -22,6 +24,7 @@ class Package {
     data['height'] = this.height;
     data['length'] = this.length;
     data['name'] = this.name;
+    data['weight'] = this.weight;
     return data;
   }
 }

@@ -88,6 +88,7 @@ class PackageListViewItem extends StatelessWidget {
                 constraints: BoxConstraints(maxWidth: 800),
                 child: Column(
                   children: [
+                    Text('Kontaktinė informacija', style: TextStyle(fontSize: 20)),
                     ListView(
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
@@ -108,7 +109,20 @@ class PackageListViewItem extends StatelessWidget {
                         ),
                       ],
                     ),
-                    Divider(),
+                    shipment.package != null ?
+                    Text('Įpakavimo informaciją', style: TextStyle(fontSize: 20)) : Container(),
+                    shipment.package != null ?
+                    ListView(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      children: <Widget>[
+                        ListTile(
+                          title: Text('Įpakavimas: ${shipment.package?.name == null ? 'Asmeninis įpakavimas' : shipment.package?.name}'),
+                          subtitle: Text('${shipment.package?.length}cm x ${shipment.package?.width}cm x ${shipment.package?.height}cm '),
+                        ),
+                      ],
+                    ) : Container(),
+                    Text('Siuntos būsena', style: TextStyle(fontSize: 20)),
                     Expanded(
                       child: ListView.builder(
                         itemCount: shipment.shipmentStatuses?.length,
